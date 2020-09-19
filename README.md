@@ -1,4 +1,4 @@
-#This repository will contain the code for Lattice Boltzmann method to simulate turbulence in the ocean
+## OceanBoltz: Lattice Boltzmann for studying turbulence in the Ocean.
 
 The main reference for the development of the method and coding is:
 
