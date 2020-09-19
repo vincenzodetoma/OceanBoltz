@@ -1,0 +1,7 @@
+lattice_nx	8
+lattice_ny 	8
+lattice_nz 	8
+time_step_dt 	0.01
+time_end 	3.
+kin_vis 	0.0038
+const_den 	1026.
