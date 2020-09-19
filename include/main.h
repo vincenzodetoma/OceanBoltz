@@ -6,4 +6,5 @@
 #include "gvars.h"
 #include "allocations.h"
 #include "deallocations.h"
+#include "checks.h"
 #endif

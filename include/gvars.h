@@ -3,7 +3,7 @@
 #include "main.h"
 
 /* domain variables: spatial params */
-int lattice_nx, lattice_ny, lattice_nz;
+int lattice_nx, lattice_ny, lattice_nz, vel_num;
 /* domain variables: temporal params */
 double time_step_dt, time_end;
 /* constants of the simulation */
@@ -17,6 +17,8 @@ struct Point3d {
 
 typedef struct Point3d point3d;
 
-point3d *u, ***f, *c;
+point3d *c;
+
+double *w;
 
 #endif

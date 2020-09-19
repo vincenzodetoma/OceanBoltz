@@ -23,10 +23,11 @@ void read_params(){
   lattice_nx = (int)values[0];
   lattice_ny = (int)values[1];
   lattice_nz = (int)values[2];
-  time_step_dt = values[3];
-  time_end = values[4];
-  kin_vis = values[5];
-  const_den = values[6];
+  vel_num = (int)values[3];
+  time_step_dt = values[4];
+  time_end = values[5];
+  kin_vis = values[6];
+  const_den = values[7];
   fclose(fp);
   free(values);
 }
