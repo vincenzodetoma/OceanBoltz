@@ -1,6 +1,6 @@
 IDIR =../include
 CC=gcc
-CFLAGS=-I$(IDIR)
+CFLAGS=-I$(IDIR) -pedantic
 OLEV=-O3
 
 ODIR=obj
@@ -11,7 +11,7 @@ LIBS=-lm
 _DEPS = %.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o my_reads.o allocations.o deallocations.o checks.o 
+_OBJ = main.o my_reads.o allocations.o deallocations.o checks.o init.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 

@@ -6,7 +6,6 @@ void check_symmetry() {
     point3d sum_wc;
     printf("initial values are: \n lattice_nx= %d,\n lattice_ny= %d,\n lattice_nz= %d,\n vel_num= %d,\n time_step_dt= %lf,\n time_end= %lf,\n kin_vis= %lf,\n const_den= %lf,\n",
 	   lattice_nx, lattice_ny, lattice_nz, vel_num, time_step_dt, time_end, kin_vis, const_den);
-    allocate_memory();
     for (i=0;i<vel_num;i++){
       printf("w[%d] = %lf, c[%d] = (%lf, %lf, %lf)\n", i, w[i], i, c[i].x, c[i].y, c[i].z);
     }
