@@ -1,0 +1,9 @@
+#ifndef allocations_h
+#define allocations_h
+#include "main.h"
+
+void allocate_memory() {
+  
+}
+
+#endif

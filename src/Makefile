@@ -11,7 +11,7 @@ LIBS=-lm
 _DEPS = %.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o my_reads.o 
+_OBJ = main.o my_reads.o allocations.o deallocations.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
