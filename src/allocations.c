@@ -12,24 +12,7 @@ void allocate_memory() {
     printf("Calloc of w's failed\n");
     exit(EXIT_FAILURE);
   }
-  printf("I'm here.\n");
-  /*Allocation of density*/
-  if ((rho = (double***)malloc(lattice_nx*sizeof(double **)))==NULL){
-    printf("First malloc to rho failed\n");
-    exit(EXIT_FAILURE);
-  }
-  for (i=0;i<lattice_ny;i++) {
-    if ((rho[i] = (double **)malloc(lattice_ny*sizeof(double *)))==NULL){
-      printf("Second malloc of rho failed.\n");
-      exit(EXIT_FAILURE);
-    }
-    for (j=0;j<lattice_nz;j++) {
-      if((rho[i][j] = (double *)malloc(lattice_nz*sizeof(double)))==NULL){
-	printf("Third calloc to rho failed.\n");
-	exit(EXIT_FAILURE);
-      }
-    }
-  }
+  printf("I'm allocating the f's.\n");
   /* Allocation of the f's */
   if((f = (double ****)malloc(vel_num*sizeof(double ***)))==NULL){
     printf("First alloc of f's failed.\n");

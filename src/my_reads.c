@@ -30,6 +30,7 @@ void read_params(){
   const_den = values[7];
   fclose(fp);
   free(values);
+  check_initparams();
 }
 
 int line_count(FILE *fp, char *filename){
