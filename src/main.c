@@ -8,9 +8,14 @@ int main(int argc, char **argv){
   check_initparams();
   allocate_memory_c_w();
   check_symmetry();
-  //allocate_memory_fs();
+  allocate_memory_fs();
+  allocate_memory_rho();
+  allocate_memory_u();
   init_rho();
+  init_u();
   deallocations_c_w();
-  //deallocations_fs();
+  deallocations_fs();
+  deallocations_rho();
+  deallocations_u();
   return EXIT_SUCCESS;
 }
