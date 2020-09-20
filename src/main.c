@@ -6,10 +6,11 @@ int main(int argc, char **argv){
   check_data_sizes();
   read_params();
   check_initparams();
-  allocate_memory();
+  allocate_memory_c_w();
   check_symmetry();
+  //allocate_memory_fs();
   init_rho();
-  printf("I'm here in main.\n");
-  deallocations();
+  deallocations_c_w();
+  //deallocations_fs();
   return EXIT_SUCCESS;
 }

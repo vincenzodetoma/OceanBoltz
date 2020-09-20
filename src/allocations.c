@@ -1,7 +1,8 @@
 #include "allocations.h"
 
-void allocate_memory() {
+void allocate_memory_c_w() {
   int i, j, k;
+  printf("I'm allocating the c's and w's\n");
   /* Allocation of the c's */
   if((c = (point3d*)malloc(vel_num*sizeof(point3d)))==NULL){
     printf("Malloc of c's failed\n");
@@ -11,30 +12,6 @@ void allocate_memory() {
   if((w = (double*)malloc(vel_num*sizeof(double)))==NULL) {
     printf("Calloc of w's failed\n");
     exit(EXIT_FAILURE);
-  }
-  printf("I'm allocating the f's.\n");
-  /* Allocation of the f's */
-  if((f = (double ****)malloc(vel_num*sizeof(double ***)))==NULL){
-    printf("First alloc of f's failed.\n");
-    exit(EXIT_FAILURE);
-  }
-  for (i=0;i<lattice_nx;i++) {
-    if((f[i] = (double ***)malloc(lattice_nx*sizeof(double **)))==NULL){
-      printf("Second alloc of f's failed.\n");
-      exit(EXIT_FAILURE);
-    }
-    for(j=0;j<lattice_ny;j++){
-      if((f[i][j] = (double **)malloc(lattice_ny*sizeof(double *)))==NULL){
-	printf("Second alloc of f's failed.\n");
-	exit(EXIT_FAILURE);
-      }
-      for (k=0;k<lattice_nz;k++) {
-	if((f[i][j][k] = (double *)malloc(lattice_nz*sizeof(double)))==NULL){
-	  printf("Third alloc of f's failed.\n");
-	  exit(EXIT_FAILURE);
-	}
-      }
-    }
   }
   /* Definition of c's and w's */
   for (i=0;i<vel_num;i++)
@@ -65,4 +42,32 @@ void allocate_memory() {
     }
   }
   w[0] = 1./3.;
+}
+
+void allocate_fs(){
+  int i,j,k;
+  printf("I'm allocating the f's.\n");
+  /* Allocation of the f's*/ 
+  if((f = (double ****)malloc(vel_num*sizeof(double ***)))==NULL){
+    printf("First alloc of f's failed.\n");
+    exit(EXIT_FAILURE);
+  }
+  for (i=0;i<lattice_nx;i++) {
+    if((f[i] = (double ***)malloc(lattice_nx*sizeof(double **)))==NULL){
+      printf("Second alloc of f's failed.\n");
+      exit(EXIT_FAILURE);
+    }
+    for(j=0;j<lattice_ny;j++){
+      if((f[i][j] = (double **)malloc(lattice_ny*sizeof(double *)))==NULL){
+	printf("Second alloc of f's failed.\n");
+	exit(EXIT_FAILURE);
+      }
+      for (k=0;k<lattice_nz;k++) {
+	if((f[i][j][k] = (double *)malloc(lattice_nz*sizeof(double)))==NULL){
+	  printf("Third alloc of f's failed.\n");
+	  exit(EXIT_FAILURE);
+	}
+      }
+    }
+  }
 }
