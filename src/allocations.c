@@ -61,7 +61,7 @@ void allocate_memory_rho(){
 }
 
 void allocate_memory_u(){
-  if((u=(point3d *)malloc(lattice_nx*lattice_ny*lattice_nz*sizeof(point3d *)))==NULL){
+  if((u=(point3d *)malloc(lattice_nx*lattice_ny*lattice_nz*sizeof(point3d)))==NULL){
     printf("Allocation of velocities failed.\n");
     exit(EXIT_FAILURE);
   }

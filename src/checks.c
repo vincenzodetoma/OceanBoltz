@@ -26,6 +26,7 @@ void check_symmetry() {
     }
     printf("checking w's sum, wc's sum, and wcc along xx and xy: %lf, %lf, %lf, %lf, %lf, %lf\n",
 	   sum_w, sum_wc.x, sum_wc.y, sum_wc.z, sum_wcc_xx, sum_wcc_xy);
+    sq_cs = sum_wcc_xx;
 }
 
 void check_data_sizes(){

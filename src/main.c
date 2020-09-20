@@ -13,9 +13,17 @@ int main(int argc, char **argv){
   allocate_memory_u();
   init_rho();
   init_u();
+  init_fs();
+  calc_den();
+  calc_vel();
+  printf("Printing rho...\n");
+  print_scal(rho);
+  printf("Printing u's...\n");
+  print_vec(u);
   deallocations_c_w();
   deallocations_fs();
   deallocations_rho();
   deallocations_u();
+  printf("Program ended.\n");
   return EXIT_SUCCESS;
 }
