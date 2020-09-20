@@ -25,9 +25,9 @@ void calc_vel(){
 	for (k=0;k<lattice_nz;k++){
 	  idxf = IDX4(v,i,j,k);
 	  idxv = IDX3(i,j,k);
-	  u[idxv].x += c[v].x*f[idxf];
-	  u[idxv].y += c[v].y*f[idxf];
-	  u[idxv].z += c[v].z*f[idxf];
+	  u[idxv].x += c[v].x*f[idxf]/rho[idxv];
+	  u[idxv].y += c[v].y*f[idxf]/rho[idxv];
+	  u[idxv].z += c[v].z*f[idxf]/rho[idxv];
 	}
       }
     }

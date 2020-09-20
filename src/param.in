@@ -1,6 +1,6 @@
-lattice_nx	2
-lattice_ny 	2
-lattice_nz 	2
+lattice_nx	8
+lattice_ny 	8
+lattice_nz 	8
 vel_num		19
 time_step_dt 	0.01
 time_end 	3.

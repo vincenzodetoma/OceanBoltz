@@ -9,9 +9,10 @@ void check_symmetry() {
     int i, j, k;
     double sum_w, sum_wcc_xx, sum_wcc_xy;
     point3d sum_wc;
-    for (i=0;i<vel_num;i++){
-      printf("w[%d] = %lf, c[%d] = (%lf, %lf, %lf)\n", i, w[i], i, c[i].x, c[i].y, c[i].z);
-    }
+    printf("Printing w's:\n");
+    print_w(w);
+    printf("Printing c's:\n");
+    print_cs(c);
     sum_w=0;
     sum_wc=(point3d){0., 0., 0.};
     sum_wcc_xx=0.;

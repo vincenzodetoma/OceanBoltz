@@ -16,9 +16,9 @@ int main(int argc, char **argv){
   init_fs();
   calc_den();
   calc_vel();
-  printf("Printing rho...\n");
+  printf("Printing rho calculated from initial f's:\n");
   print_scal(rho);
-  printf("Printing u's...\n");
+  printf("Printing u's calculated from inital f's:\n");
   print_vec(u);
   deallocations_c_w();
   deallocations_fs();
