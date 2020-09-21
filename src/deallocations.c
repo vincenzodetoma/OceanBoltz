@@ -9,6 +9,8 @@ void deallocations_c_w(){
 void deallocations_fs(){
   free(f);
   free(f_eq);
+  free(fnew);
+  free(ftemp);
   printf("f's deallocated.\n");
 }
 

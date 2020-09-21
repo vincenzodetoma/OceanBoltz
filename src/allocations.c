@@ -57,6 +57,16 @@ void allocate_memory_fs(){
     printf("Calloc of f_eq's failed.\n");
     exit(EXIT_FAILURE);
   }
+  printf("I'm allocating the fnew's.\n");
+  if((fnew = (double*)malloc(vel_num*lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
+    printf("Calloc of fnew's failed.\n");
+    exit(EXIT_FAILURE);
+  }
+  printf("I'm allocating the ftemp's.\n");
+  if((ftemp = (double*)malloc(vel_num*lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
+    printf("Calloc of ftemp's failed.\n");
+    exit(EXIT_FAILURE);
+  }
 }
 
 void allocate_memory_rho(){

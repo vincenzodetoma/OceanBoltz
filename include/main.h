@@ -16,6 +16,6 @@
 #define IDX4(v,i,j,k) (v*lattice_nx*lattice_ny*lattice_nz + i*lattice_ny*lattice_nz + j*lattice_nz + k)
 #define IDX3(i,j,k) (i*lattice_ny*lattice_nz + j*lattice_nz + k)
 #define IDXV(v,i,j,k) (v*lattice_nx*lattice_ny*lattice_nz)
-#define IDXT(v,i,j,k) (v*lattice_nx*lattice_ny*lattice_nz + i*lattice_ny*lattice_nz + c[v].x*time_step_dt + j*lattice_nz + c[v].y*time_step_dt + k + c[v].z*time_step_dt)
+#define IDXT(v,i,j,k) (v*lattice_nx*lattice_ny*lattice_nz + (i + (int)c[v].x*time_step_dt)*lattice_ny*lattice_nz + (j + (int)(c[v].y))*lattice_nz + (k + (int)c[v].z*time_step_dt))
 
 #endif

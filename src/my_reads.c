@@ -10,7 +10,7 @@ void read_params(){
     printf("File %s not opened\n", filename);
     exit(EXIT_FAILURE);
   }
-  len_vals = line_count(fp, filename)+1;
+  len_vals = line_count(fp, filename)+20;
   i=0;
   if ((values=(double *)calloc(len_vals, sizeof(double *)))==NULL) {
     printf("allocation of initial params failed \n");

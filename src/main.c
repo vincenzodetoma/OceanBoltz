@@ -18,19 +18,17 @@ int main(int argc, char **argv){
   init_rho();
   init_u();
   init_fs();
-  calc_den();
-  calc_vel();
   for (t=0;t<numsteps;t++){
     calc_vel();
-    calc_den();    
+    calc_den();
+    f_eq = calc_feq(w,c,rho,u);
     collide();
     stream();
-    if(t==numsteps -1){
-      printf("rho at time %d:\n", t);
-      print_scal(rho);
-      printf("vel at time %d:\n", t);
-      print_vec(u);
-    }
+    swap();
+    printf("rho at time %d:\n", t);
+    print_scal(rho);
+    printf("vel at time %d:\n", t);
+    print_vec(u);
   }
   //printf("Printing rho calculated from initial f's:\n");
   //print_scal(rho);

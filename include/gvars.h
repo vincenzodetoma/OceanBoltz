@@ -20,6 +20,6 @@ struct Point3d {
 typedef struct Point3d point3d;
 
 point3d *c, *u;
-double *w, *f, *rho, *f_eq;
+double *w, *f, *rho, *f_eq, *fnew, *ftemp;
 
 #endif

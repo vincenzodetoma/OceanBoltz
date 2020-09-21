@@ -5,5 +5,6 @@
 
 void collide();
 void stream();
+void swap();
 
 #endif
