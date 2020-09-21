@@ -2,7 +2,7 @@
 
 void check_initparams(){
   printf("initial values are: \n lattice_nx= %d,\n lattice_ny= %d,\n lattice_nz= %d,\n vel_num= %d,\n time_step_dt= %lf,\n time_end= %lf,\n kin_vis= %lf,\n const_den= %lf,\n",
-	 lattice_nx, lattice_ny, lattice_nz, vel_num, time_step_dt, time_end, kin_vis, const_den);
+	 lattice_nx, lattice_ny, lattice_nz, vel_num, time_step_dt, time_end, kin_vis, rho_0);
 }
 
 void check_symmetry() {

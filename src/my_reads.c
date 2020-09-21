@@ -12,7 +12,7 @@ void read_params(){
   }
   len_vals = line_count(fp, filename)+1;
   i=0;
-  if ((values=(double *)calloc(len_vals, sizeof(double)))==NULL) {
+  if ((values=(double *)calloc(len_vals, sizeof(double *)))==NULL) {
     printf("allocation of initial params failed \n");
     exit(EXIT_FAILURE);
   }
@@ -27,7 +27,7 @@ void read_params(){
   time_step_dt = values[4];
   time_end = values[5];
   kin_vis = values[6];
-  const_den = values[7];
+  rho_0 = values[7];
   fclose(fp);
   free(values);
 }
