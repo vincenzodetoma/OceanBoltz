@@ -6,12 +6,12 @@ OLEV=-O3
 ODIR=obj
 LDIR =../lib
 
-LIBS=-lm
+LIBS=-lm -lnetcdf
 
 _DEPS = %.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o my_reads.o allocations.o deallocations.o checks.o init.o calc_vel_den.o prints.o collide_stream.o 
+_OBJ = main.o my_reads.o allocations.o deallocations.o checks.o init.o calc_vel_den.o prints.o collide_stream.o write_nc.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
@@ -24,4 +24,4 @@ OceanBoltz: $(OBJ)
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o *~ OceanBoltz $(INCDIR)/*~ 
+	rm -f $(ODIR)/*.o *~ OceanBoltz $(INCDIR)/*~ *.nc

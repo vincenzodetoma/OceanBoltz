@@ -4,6 +4,7 @@
 int main(int argc, char **argv){
   int t, numsteps;
   int i, j, k, q;
+  int nc_id_rho, nc_id_rho_t;
   check_data_sizes();
   read_params();
   check_initparams();
@@ -16,8 +17,10 @@ int main(int argc, char **argv){
   allocate_memory_rho();
   allocate_memory_u();
   init_rho();
+  nc_id_rho = write_double(rho, t, "density.nc", "rho", nc_id_rho);
   init_u();
-  init_fs();
+  f_eq = calc_feq(w,c,rho,u);
+  init_fs(f_eq);
   for (t=0;t<numsteps;t++){
     calc_vel();
     calc_den();
@@ -25,6 +28,7 @@ int main(int argc, char **argv){
     collide();
     stream();
     swap();
+    nc_id_rho_t = write_double(rho, t, "density_t.nc", "rho", nc_id_rho_t);
     printf("rho at time %d:\n", t);
     print_scal(rho);
     printf("vel at time %d:\n", t);
