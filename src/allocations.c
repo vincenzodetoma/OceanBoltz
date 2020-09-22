@@ -1,19 +1,28 @@
 #include "allocations.h"
 
+point3d * allocate_point3d(point3d * a, int a_dim){
+  if((a = (point3d *)malloc(a_dim*sizeof(point3d)))==NULL){
+      printf("Malloc to a point3d * failed.\n");
+      exit(EXIT_FAILURE);
+    }
+  return a;
+}
+
+double * allocate_double(double *a, int a_dim){
+  if((a= (double *)malloc(a_dim*sizeof(double)))==NULL){
+    printf("Malloc to a double * failed.\n");
+    exit(EXIT_FAILURE);
+  }
+  return a;
+}
 void allocate_memory_c_w() {
   int i, j, k;
   printf("I'm allocating the c's.\n");
   /* Allocation of the c's */
-  if((c = (point3d*)malloc(vel_num*sizeof(point3d)))==NULL){
-    printf("Malloc of c's failed\n");
-    exit(EXIT_FAILURE);
-  }
+  c = allocate_point3d(c, vel_num);
   printf("I'm allocating the w's.\n");
   /* Allocation of the w's */
-  if((w = (double*)malloc(vel_num*sizeof(double)))==NULL) {
-    printf("Calloc of w's failed\n");
-    exit(EXIT_FAILURE);
-  }
+  w = allocate_double(w, vel_num);
   /* Definition of c's and w's */
   for (i=0;i<vel_num;i++)
     c[i] = (point3d){0.,0.,0.};
@@ -46,41 +55,26 @@ void allocate_memory_c_w() {
 }
 
 void allocate_memory_fs(){
+  int dim_f = vel_num*lattice_nx*lattice_ny*lattice_nz;
   printf("I'm allocating the f's.\n");
-  /* Allocation of the f's*/ 
-  if((f = (double*)malloc(vel_num*lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
-    printf("Calloc of f's failed.\n");
-    exit(EXIT_FAILURE);
-  }
+  /* Allocation of the f's*/
+  f = allocate_double(f, dim_f);
   printf("I'm allocating the f_eq's.\n");
-  if((f_eq = (double*)malloc(vel_num*lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
-    printf("Calloc of f_eq's failed.\n");
-    exit(EXIT_FAILURE);
-  }
+  f_eq = allocate_double(f_eq, dim_f);
   printf("I'm allocating the fnew's.\n");
-  if((fnew = (double*)malloc(vel_num*lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
-    printf("Calloc of fnew's failed.\n");
-    exit(EXIT_FAILURE);
-  }
+  fnew = allocate_double(f_eq, dim_f);
   printf("I'm allocating the ftemp's.\n");
-  if((ftemp = (double*)malloc(vel_num*lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
-    printf("Calloc of ftemp's failed.\n");
-    exit(EXIT_FAILURE);
-  }
+  ftemp = allocate_double(ftemp, dim_f);
 }
 
 void allocate_memory_rho(){
+  int dim_3 = lattice_nx*lattice_ny*lattice_nz;
   printf("I'm allocating the rho.\n");
-  if((rho = (double *)malloc(lattice_nx*lattice_ny*lattice_nz*sizeof(double)))==NULL){
-    printf("Allocation of rho failed.\n");
-    exit(EXIT_FAILURE);
-  }
+  rho = allocate_double(rho, dim_3);
 }
 
 void allocate_memory_u(){
+  int dim_3 = lattice_nx*lattice_ny*lattice_nz;
   printf("I'm allocating the u's.\n");
-  if((u=(point3d *)malloc(lattice_nx*lattice_ny*lattice_nz*sizeof(point3d)))==NULL){
-    printf("Allocation of velocities failed.\n");
-    exit(EXIT_FAILURE);
-  }
+  u = allocate_point3d(u, dim_3);
 }

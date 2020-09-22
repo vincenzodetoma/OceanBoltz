@@ -5,15 +5,16 @@
 
 void init_rho(){
   int i, j, k, idxrho;
-  double r, min=0.5, max=1.;
-  int seed = time(NULL);
-  srand48(seed);
+  //double r, min=0.5, max=1.;
+  //int seed = time(NULL);
+  //srand48(seed);
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxrho = IDX3(i,j,k);
-	r = ((double)lrand48() / RAND_MAX)*(max - min) + min;
-	rho[idxrho] = r;
+	//r = ((double)lrand48() / RAND_MAX)*(max - min) + min;
+	//rho[idxrho] = r;
+	rho[idxrho] = rho_0;
 	//if((k<=(int)(lattice_nz*0.5))&&(j<=(int)(lattice_ny*0.5))){
 	//rho[idxrho] = 0.5*rho_0;
 	//}
@@ -26,16 +27,16 @@ void init_rho(){
 
 void init_u(){
   int i, j, k, idxu;
-  double rx, ry, rz;
-  int seed = time(NULL);
-  srand48(seed);
+  //double rx, ry, rz;
+  //int seed = time(NULL);
+  //srand48(seed);
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxu = IDX3(i,j,k);
-	rx = (double)lrand48() / RAND_MAX;
-	ry = (double)lrand48() / RAND_MAX;
-	rz = (double)lrand48() / RAND_MAX;
+	//rx = (double)lrand48() / RAND_MAX;
+	//ry = (double)lrand48() / RAND_MAX;
+	//rz = (double)lrand48() / RAND_MAX;
 	//u[idxu] = (point3d){rx,ry,rz};
 	u[idxu] = (point3d){0.,0.,0.};
       }
