@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv){
   int t, numsteps;
-  int i, j, k, q;
+  int v, i, j, k, idxf;
   int nc_id_rho, nc_id_rho_t;
   double fac_f;
   bool on_off_collision;
@@ -19,20 +19,27 @@ int main(int argc, char **argv){
   allocate_memory_fs(f, f_eq, fnew);
   allocate_memory_rho(rho);
   allocate_memory_u(u);
-  init_rho(rho, rho_0);
+  rho = init_rho(rho, rho_0);
   nc_id_rho = write_double(rho, t, "density.nc", "rho", nc_id_rho);
-  init_u(u);
+  u = init_u(u);
   f_eq = calc_feq(w,c,rho,u);
-  init_fs(f, fnew, f_eq);
-  on_off_collision=false;
-  collide_and_stream(fnew, f, fac_f, f_eq, c, on_off_collision);
-  //on_off_collision=true;
+  f = init_fs(f, f_eq);
+  on_off_collision=true;
   for (t=0;t<numsteps;t++){
-    calc_vel(u, rho, c, f);
-    calc_den(rho, f);
+    rho = calc_den(rho, f);
+    u = calc_vel(u, rho, c, f);
     f_eq = calc_feq(w,c,rho,u);
-    collide_and_stream(fnew, f, fac_f, f_eq, c, on_off_collision);
-    swap(f, fnew);
+    fnew = collide_and_stream(f, fac_f, f_eq, c, on_off_collision);
+    for (v=0;v<vel_num;v++){
+      for(i=0;i<lattice_nx;i++){
+	for (j=0;j<lattice_ny;j++){
+	  for (k=0;k<lattice_nz;k++){
+	    idxf = IDX4(v,i,j,k);
+	    f[idxf] = fnew[idxf];
+	  }
+	}
+      }
+    }
     nc_id_rho_t = write_double(rho, t, "density_t.nc", "rho", nc_id_rho_t);
     printf("rho at time %d:\n", t);
     print_scal(rho);

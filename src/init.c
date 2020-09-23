@@ -3,7 +3,7 @@
 
 #define twopi 2*M_PI
 
-void init_rho(double *rho, const double rho_0){
+double * init_rho(double *rho, const double rho_0){
   int i, j, k, idxrho;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
@@ -18,9 +18,10 @@ void init_rho(double *rho, const double rho_0){
   }
   printf("Printing init rho:\n");
   print_scal(rho);
+  return rho;
 }
 
-void init_u(point3d *u){
+point3d * init_u(point3d *u){
   int seed;
   int i, j, k, idxu;
   double rx, ry, rz;
@@ -40,9 +41,10 @@ void init_u(point3d *u){
   }
   printf("Printing init u:\n");
   print_vec(u);
+  return u;
 }
 
-void init_fs(double *f, double *fnew, const double *init){
+double * init_fs(double *f, const double *init){
   int v,i,j,k, idxf;
   for(v=0;v<vel_num;v++){
     for(i=0;i<lattice_nx;i++){
@@ -50,13 +52,13 @@ void init_fs(double *f, double *fnew, const double *init){
 	for(k=0;k<lattice_nz;k++){
 	  idxf = IDX4(v,i,j,k);
 	  f[idxf] = init[idxf];
-	  fnew[idxf] = 0.;
 	}
       }
     }
   }
   printf("printing init f's:\n");
   print_fs(f);
+  return f;
 }
 
 double scal_prod (point3d a, point3d b){

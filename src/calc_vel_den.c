@@ -1,29 +1,30 @@
 #include "calc_vel_den.h"
 
-void calc_den(double *rho, const double *f){
+double * calc_den(double *rho, const double *f){
   int v, i, j, k, idxf, idxv;
-  vanish_rho(rho);
+  rho = vanish_rho(rho);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
 	for (k=0;k<lattice_nz;k++){	
-	  idxf = IDXV(v,i,j,k);
+	  idxf = IDX4(v,i,j,k);
 	  idxv = IDX3(i,j,k);
 	  rho[idxv] += f[idxf];
 	}
       }
     }
   }
+  return rho;
 }
 
-void calc_vel(point3d *u, const double *rho, const point3d *c, const double *f){
+point3d * calc_vel(point3d *u, const double *rho, const point3d *c, const double *f){
   int v,i,j,k, idxf, idxv;
-  vanish_u(u);
+  u = vanish_u(u);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
 	for (k=0;k<lattice_nz;k++){
-	  idxf = IDXV(v,i,j,k);
+	  idxf = IDX4(v,i,j,k);
 	  idxv = IDX3(i,j,k);
 	  u[idxv].x += c[v].x*f[idxf];
 	  u[idxv].y += c[v].y*f[idxf];
@@ -42,9 +43,10 @@ void calc_vel(point3d *u, const double *rho, const point3d *c, const double *f){
       }
     }
   }
+  return u;
 }
 
-void vanish_rho(double *rho){
+double * vanish_rho(double *rho){
   int i, j, k, idxv;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
@@ -54,9 +56,10 @@ void vanish_rho(double *rho){
       }
     }
   }
+  return rho;
 }
 
-void vanish_u(point3d *u){
+point3d * vanish_u(point3d *u){
   int v,i,j,k, idxv;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
@@ -66,4 +69,5 @@ void vanish_u(point3d *u){
       }
     }
   }
+  return u;
 }

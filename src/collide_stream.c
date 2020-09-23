@@ -1,9 +1,10 @@
 #include "collide_stream.h"
 
-void collide_and_stream(double *fnew, const double *f, const double fac, const double *f_eq, const point3d *c, bool coll){
+double * collide_and_stream(const double *f, const double fac, const double *f_eq, const point3d *c, bool coll){
   int v, i, j, k, idxf, idxt, ix, iy, iz;
   point3d next;
   double to_add;
+  double *fnew = allocate_double(fnew, vel_num*lattice_nx*lattice_ny*lattice_nz);
   for(i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
@@ -38,18 +39,5 @@ void collide_and_stream(double *fnew, const double *f, const double fac, const d
       }
     }
   }
-}
-
-void swap(double *fold, const double *fnew){
-  int v, i, j, k, idxf, idxt;
-  for (v=0;v<vel_num;v++){
-    for(i=0;i<lattice_nx;i++){
-      for (j=0;j<lattice_ny;j++){
-	for (k=0;k<lattice_nz;k++){
-	  idxf = IDX4(v,i,j,k);
-	  fold[idxf] = fnew[idxf];
-	}
-      }
-    }
-  }	  
+  return fnew;
 }
