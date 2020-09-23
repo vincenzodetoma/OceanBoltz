@@ -1,12 +1,12 @@
 #include "calc_vel_den.h"
 
-void calc_den(){
+void calc_den(double *rho, const double *f){
   int v, i, j, k, idxf, idxv;
-  vanish_rho();
+  vanish_rho(rho);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
-	for (k=0;k<lattice_nz;k++){
+	for (k=0;k<lattice_nz;k++){	
 	  idxf = IDXV(v,i,j,k);
 	  idxv = IDX3(i,j,k);
 	  rho[idxv] += f[idxf];
@@ -16,19 +16,18 @@ void calc_den(){
   }
 }
 
-void calc_vel(){
-  int v,i,j,k, idxf, idxv, sum_v;
-  vanish_u();
+void calc_vel(point3d *u, const double *rho, const point3d *c, const double *f){
+  int v,i,j,k, idxf, idxv;
+  vanish_u(u);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
 	for (k=0;k<lattice_nz;k++){
-	  idxf = IDX4(v,i,j,k);
-	  sum_v = IDXV(v,i,j,k);
+	  idxf = IDXV(v,i,j,k);
 	  idxv = IDX3(i,j,k);
-	  u[idxv].x += c[v].x*f[sum_v];
-	  u[idxv].y += c[v].y*f[sum_v];
-	  u[idxv].z += c[v].z*f[sum_v];
+	  u[idxv].x += c[v].x*f[idxf];
+	  u[idxv].y += c[v].y*f[idxf];
+	  u[idxv].z += c[v].z*f[idxf];
 	}
       }
     }
@@ -45,19 +44,19 @@ void calc_vel(){
   }
 }
 
-void vanish_rho(){
+void vanish_rho(double *rho){
   int i, j, k, idxv;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxv = IDX3(i,j,k);
-	rho[idxv] = 0.;;
+	rho[idxv] = 0.;
       }
     }
   }
 }
 
-void vanish_u(){
+void vanish_u(point3d *u){
   int v,i,j,k, idxv;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){

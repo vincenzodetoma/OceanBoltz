@@ -1,15 +1,18 @@
 #include "init.h"
 #include <math.h>
 
-#define inv2pi 1/(2*M_PI)
+#define twopi 2*M_PI
 
-void init_rho(const double *rho_0){
+void init_rho(double *rho, const double rho_0){
   int i, j, k, idxrho;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxrho = IDX3(i,j,k);
-	rho[idxrho] = 1.;
+	if(i<lattice_nx*0.5)
+	  rho[idxrho] = rho_0;
+	else
+	  rho[idxrho] = rho_0;
       }
     }
   }
@@ -17,12 +20,20 @@ void init_rho(const double *rho_0){
   print_scal(rho);
 }
 
-void init_u(){
+void init_u(point3d *u){
+  int seed;
   int i, j, k, idxu;
+  double rx, ry, rz;
+  seed = time(NULL);
+  srand48(seed);
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxu = IDX3(i,j,k);
+	rx = (double) lrand48() / RAND_MAX;
+	ry = (double) lrand48() / RAND_MAX;
+	rz = (double) lrand48() / RAND_MAX;
+	//u[idxu] = (point3d){rx,ry,rz};
 	u[idxu] = (point3d){0.,0.,0.};
       }
     }
@@ -31,9 +42,8 @@ void init_u(){
   print_vec(u);
 }
 
-void init_fs(const double *init){
+void init_fs(double *f, double *fnew, const double *init){
   int v,i,j,k, idxf;
-  init = calc_feq(w,c,rho,u);
   for(v=0;v<vel_num;v++){
     for(i=0;i<lattice_nx;i++){
       for(j=0;j<lattice_ny;j++){
@@ -41,7 +51,6 @@ void init_fs(const double *init){
 	  idxf = IDX4(v,i,j,k);
 	  f[idxf] = init[idxf];
 	  fnew[idxf] = 0.;
-	  ftemp[idxf] = 0.;
 	}
       }
     }
@@ -57,20 +66,23 @@ double scal_prod (point3d a, point3d b){
 
 double * calc_feq(const double *w, const point3d *c, const double *rho, const point3d* u){
   int v,i,j,k, idxf, idxv;
+  double to_add;
   double inv_cs2 = 1/sq_cs, inv_cs4 = pow(inv_cs2, 2);
-  for (v=0;v<vel_num;v++){
-    for (i=0;i<lattice_nx;i++){
-      for (j=0;j<lattice_ny;j++){
-	for (k=0;k<lattice_nz;k++){
+  double *to_return = allocate_double(to_return, vel_num*lattice_nx*lattice_ny*lattice_nz);
+  for (i=0;i<lattice_nx;i++){
+    for (j=0;j<lattice_ny;j++){
+      for (k=0;k<lattice_nz;k++){
+	for (v=0;v<vel_num;v++){
 	  idxf = IDX4(v,i,j,k);
 	  idxv = IDX3(i,j,k);
-	  f_eq[idxf] = w[v]*rho[idxv]*(1
-				       + ((scal_prod(u[idxv], c[v]))*inv_cs2)
-				       + ((pow(scal_prod(u[idxv], c[v]),2))*inv_cs4)
-				       - (scal_prod(u[idxv],u[idxv])*inv_cs2*0.5));
+	  to_add = w[v]*rho[idxv]*(1
+				   + ((scal_prod(u[idxv], c[v]))*inv_cs2)
+				   + ((pow(scal_prod(u[idxv], c[v]),2))*inv_cs4)
+				   - (scal_prod(u[idxv],u[idxv])*inv_cs2*0.5));
+	  to_return[idxf] = to_add;
 	}
       }
     }
   }
-  return f_eq;
+  return to_return;
 }

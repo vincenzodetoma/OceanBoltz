@@ -63,8 +63,6 @@ void allocate_memory_fs(){
   f_eq = allocate_double(f_eq, dim_f);
   printf("I'm allocating the fnew's.\n");
   fnew = allocate_double(f_eq, dim_f);
-  printf("I'm allocating the ftemp's.\n");
-  ftemp = allocate_double(ftemp, dim_f);
 }
 
 void allocate_memory_rho(){

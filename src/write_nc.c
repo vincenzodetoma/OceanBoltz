@@ -42,12 +42,10 @@ int write_double(const double *a, const int t, const char * filename, const char
       for (k=0;k<lattice_nz;k++){
 	idxrho = IDX3(i,j,k);
 	data[i][j][k] = a[idxrho];
-	printf("d[%d][%d][%d] = %lf\n", i,j,k,data[i][j][k]);
       }
     }
   }
   start[0] = 0;
-  printf("%d\n", t);
   if ((retval = nc_put_vara_double(ncid, varid, start, count, &data[0][0][0])))
     ERR(retval);
   if((retval=nc_close(ncid)))

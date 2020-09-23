@@ -5,7 +5,7 @@ void check_initparams(){
 	 lattice_nx, lattice_ny, lattice_nz, vel_num, time_step_dt, time_end, kin_vis, rho_0);
 }
 
-void check_symmetry() {
+void check_symmetry(const point3d *c, const double *w) {
     int i, j, k;
     double sum_w, sum_wcc_xx, sum_wcc_xy;
     point3d sum_wc;

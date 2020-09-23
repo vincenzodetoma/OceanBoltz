@@ -1,6 +1,6 @@
 #include "prints.h"
 
-void print_scal(double *scal){
+void print_scal(const double *scal){
   int i,j,k, idx3d;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
@@ -12,7 +12,7 @@ void print_scal(double *scal){
   }
 }
 
-void print_vec(point3d *u){
+void print_vec(const point3d *u){
   int i,j,k, idx3d;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
@@ -25,7 +25,7 @@ void print_vec(point3d *u){
   }
 }
 
-void print_fs(double *p){
+void print_fs(const double *p){
   int v,i,j,k,idxf;
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
@@ -39,14 +39,14 @@ void print_fs(double *p){
   }
 }
 
-void print_cs(point3d *a){
+void print_cs(const point3d *a){
   int i;
   for (i=0; i<vel_num;i++){
     printf("array[%d] = (%lf, %lf, %lf)\n", i, a[i].x, a[i].y, a[i].z);
   }
 }
 
-void print_w(double *d){
+void print_w(const double *d){
   int i;
   for (i=0;i<vel_num;i++){
     printf("array[%d] = %lf\n", i, d[i]);
