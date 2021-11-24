@@ -2,10 +2,10 @@
 #define init_h
 #include "main.h"
 
-void init_rho();
-void init_u();
-void init_fs();
+double * init_rho(double *,const double);
+point3d * init_u(point3d *);
+double *init_fs(double *, const double *);
 double scal_prod(point3d, point3d);
-double * calc_feq(double *, point3d *, double *, point3d *);
+double * calc_feq(const double *, const point3d *, const double *, const point3d *);
 
 #endif

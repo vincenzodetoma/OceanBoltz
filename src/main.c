@@ -4,7 +4,7 @@
 int main(int argc, char **argv){
   int t, numsteps;
   int v, i, j, k, idxf;
-  int nc_id_rho, nc_id_rho_t;
+  int nc_id_rho, nc_id_rho_t, nc_id_u_t, nc_id_v_t, nc_id_w_t;
   double fac_f;
   bool on_off_collision;
   check_data_sizes();
@@ -24,12 +24,35 @@ int main(int argc, char **argv){
   u = init_u(u);
   f_eq = calc_feq(w,c,rho,u);
   f = init_fs(f, f_eq);
+  printf("Initialized all.\n");
   on_off_collision=true;
   for (t=0;t<numsteps;t++){
+    printf("%d\n", t);
     rho = calc_den(rho, f);
+    printf("calculated density\n");
     u = calc_vel(u, rho, c, f);
+    printf("calculated velocities\n");
     f_eq = calc_feq(w,c,rho,u);
+    printf("calculated f_eq\n");
+    char timestamp[20];
+    sprintf(timestamp, "%d", t);
+    printf("%s\n", timestamp);
+    char *outname_rho=concat("density.nc.", timestamp);
+    char *outname_u=concat("u.nc.", timestamp);
+    char *outname_v=concat("v.nc.", timestamp);
+    char *outname_w=concat("w.nc.", timestamp);
+    printf("%s\n", outname_rho);
+    nc_id_rho_t = write_double(rho, t, outname_rho, "rho", nc_id_rho_t);
+    nc_id_u_t = write_point3d(u, t, outname_u, "u", nc_id_u_t);
+    nc_id_v_t = write_point3d(u, t, outname_v, "v", nc_id_v_t);
+    nc_id_w_t = write_point3d(u, t, outname_w, "w", nc_id_w_t);
+    free(outname_u);
+    free(outname_v);
+    free(outname_w);
+    free(outname_rho);
+    printf("writing out to disk...\n");
     fnew = collide_and_stream(f, fac_f, f_eq, c, on_off_collision);
+    printf("Collision made\n");
     for (v=0;v<vel_num;v++){
       for(i=0;i<lattice_nx;i++){
 	for (j=0;j<lattice_ny;j++){
@@ -40,11 +63,11 @@ int main(int argc, char **argv){
 	}
       }
     }
-    nc_id_rho_t = write_double(rho, t, "density_t.nc", "rho", nc_id_rho_t);
-    printf("rho at time %d:\n", t);
-    print_scal(rho);
-    printf("vel at time %d:\n", t);
-    print_vec(u);
+    printf("Loop finished\n");
+    //printf("rho at time %d:\n", t);
+    //print_scal(rho);
+    //printf("vel at time %d:\n", t);
+    //print_vec(u);
   }
   //printf("Printing rho calculated from initial f's:\n");
   //print_scal(rho);
@@ -57,3 +80,4 @@ int main(int argc, char **argv){
   printf("Program ended.\n");
   return EXIT_SUCCESS;
 }
+

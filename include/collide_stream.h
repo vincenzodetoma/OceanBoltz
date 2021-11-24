@@ -3,8 +3,6 @@
 
 #include "main.h"
 
-void collide();
-void stream();
-void swap();
+double * collide_and_stream(const double *, const double, const double *, const point3d *, bool);
 
 #endif

@@ -9,15 +9,12 @@ double * init_rho(double *rho, const double rho_0){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxrho = IDX3(i,j,k);
-	if(i<lattice_nx*0.5)
-	  rho[idxrho] = rho_0;
-	else
 	  rho[idxrho] = rho_0;
       }
     }
   }
-  printf("Printing init rho:\n");
-  print_scal(rho);
+  //printf("Printing init rho:\n");
+  //print_scal(rho);
   return rho;
 }
 
@@ -39,13 +36,14 @@ point3d * init_u(point3d *u){
       }
     }
   }
-  printf("Printing init u:\n");
-  print_vec(u);
+  //printf("Printing init u:\n");
+  //print_vec(u);
   return u;
 }
 
 double * init_fs(double *f, const double *init){
   int v,i,j,k, idxf;
+  printf("printing init f's:\n");
   for(v=0;v<vel_num;v++){
     for(i=0;i<lattice_nx;i++){
       for(j=0;j<lattice_ny;j++){
@@ -56,8 +54,7 @@ double * init_fs(double *f, const double *init){
       }
     }
   }
-  printf("printing init f's:\n");
-  print_fs(f);
+  //print_fs(f);
   return f;
 }
 
@@ -79,7 +76,7 @@ double * calc_feq(const double *w, const point3d *c, const double *rho, const po
 	  idxv = IDX3(i,j,k);
 	  to_add = w[v]*rho[idxv]*(1
 				   + ((scal_prod(u[idxv], c[v]))*inv_cs2)
-				   + ((pow(scal_prod(u[idxv], c[v]),2))*inv_cs4)
+				   + ((pow(scal_prod(u[idxv], c[v]),2))*inv_cs4*0.5)
 				   - (scal_prod(u[idxv],u[idxv])*inv_cs2*0.5));
 	  to_return[idxf] = to_add;
 	}

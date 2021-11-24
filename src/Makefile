@@ -24,4 +24,4 @@ OceanBoltz: $(OBJ)
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o *~ OceanBoltz $(INCDIR)/*~ *.nc
+	rm -f $(ODIR)/*.o *~ OceanBoltz $(INCDIR)/*~ *.nc*

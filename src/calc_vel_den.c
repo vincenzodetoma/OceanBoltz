@@ -2,7 +2,7 @@
 
 double * calc_den(double *rho, const double *f){
   int v, i, j, k, idxf, idxv;
-  rho = vanish_rho(rho);
+  //rho = vanish_rho(rho);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
@@ -19,7 +19,7 @@ double * calc_den(double *rho, const double *f){
 
 point3d * calc_vel(point3d *u, const double *rho, const point3d *c, const double *f){
   int v,i,j,k, idxf, idxv;
-  u = vanish_u(u);
+  //u = vanish_u(u);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
