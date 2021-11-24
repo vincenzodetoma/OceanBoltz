@@ -7,6 +7,7 @@ double * allocate_double(double *, int);
 void allocate_memory_c_w();
 void allocate_memory_fs();
 void allocate_memory_rho();
+void allocate_memory_g_force();
 void allocate_memory_u();
 
 #endif

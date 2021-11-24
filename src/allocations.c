@@ -97,6 +97,13 @@ void allocate_memory_rho(){
   rho = allocate_double(rho, dim_3);
 }
 
+void allocate_memory_g_force(){
+  int dim_3 = lattice_nx*lattice_ny*lattice_nz;
+  printf("I'm allocating the rho.\n");
+  g_force = allocate_double(g_force, dim_3);
+}
+
+
 void allocate_memory_u(){
   int dim_3 = lattice_nx*lattice_ny*lattice_nz;
   printf("I'm allocating the u's.\n");

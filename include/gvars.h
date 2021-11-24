@@ -19,7 +19,7 @@ struct Point3d {
 
 typedef struct Point3d point3d;
 
-double *w, *f, *rho, *f_eq, *fnew;
+double *w, *f, *rho, *f_eq, *fnew, *g_force;
 point3d *c, *u;
 
 #endif

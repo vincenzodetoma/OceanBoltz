@@ -9,7 +9,11 @@ double * init_rho(double *rho, const double rho_0){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxrho = IDX3(i,j,k);
+        if(k<lattice_nz*0.5){
 	  rho[idxrho] = rho_0;
+        } else {
+          rho[idxrho] = rho_0 - rho_0/1000.;
+        }
       }
     }
   }
@@ -85,3 +89,24 @@ double * calc_feq(const double *w, const point3d *c, const double *rho, const po
   }
   return to_return;
 }
+
+double * calc_g_force(double *rho, const double g){
+  int i, j, k, idxrho;
+  g_force = vanish_scalar(g_force);
+  for (i=0;i<lattice_nx;i++){
+    for (j=0;j<lattice_ny;j++){
+      for (k=0;k<lattice_nz;k++){
+        idxrho = IDX3(i,j,k);
+        if(k<lattice_nz*0.5){
+          g_force[idxrho] = rho[idxrho]*g;
+        } else {
+          g_force[idxrho] = rho[idxrho]*g;
+        }
+      }
+    }
+  }
+  //printf("Printing init rho:\n");
+  //print_scal(rho);
+  return g_force;
+}
+

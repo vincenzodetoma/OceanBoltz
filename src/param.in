@@ -1,8 +1,8 @@
-lattice_nx	20	
-lattice_ny 	20
-lattice_nz 	20
+lattice_nx	50	
+lattice_ny 	50
+lattice_nz 	50
 vel_num		27
 time_step_dt 	1.
-time_end 	100.
-kin_vis 	1.063e-3
-const_den 	1.025
+time_end 	5.
+kin_vis 	1.063e-9
+const_den 	1.026e+6

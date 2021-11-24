@@ -2,7 +2,7 @@
 
 double * calc_den(double *rho, const double *f){
   int v, i, j, k, idxf, idxv;
-  //rho = vanish_rho(rho);
+  rho = vanish_scalar(rho);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
@@ -17,9 +17,9 @@ double * calc_den(double *rho, const double *f){
   return rho;
 }
 
-point3d * calc_vel(point3d *u, const double *rho, const point3d *c, const double *f){
+point3d * calc_vel(point3d *u, const double *rho, const point3d *c, const double *f, const double *g_force){
   int v,i,j,k, idxf, idxv;
-  //u = vanish_u(u);
+  u = vanish_u(u);
   for (v=0;v<vel_num;v++){
     for (i=0;i<lattice_nx;i++){
       for (j=0;j<lattice_ny;j++){
@@ -28,7 +28,7 @@ point3d * calc_vel(point3d *u, const double *rho, const point3d *c, const double
 	  idxv = IDX3(i,j,k);
 	  u[idxv].x += c[v].x*f[idxf];
 	  u[idxv].y += c[v].y*f[idxf];
-	  u[idxv].z += c[v].z*f[idxf];
+	  u[idxv].z += (c[v].z*f[idxf] + g_force[idxv]*time_step_dt*0.5);
 	}
       }
     }
@@ -46,17 +46,17 @@ point3d * calc_vel(point3d *u, const double *rho, const point3d *c, const double
   return u;
 }
 
-double * vanish_rho(double *rho){
+double * vanish_scalar(double *s){
   int i, j, k, idxv;
   for (i=0;i<lattice_nx;i++){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxv = IDX3(i,j,k);
-	rho[idxv] = 0.;
+	s[idxv] = 0.;
       }
     }
   }
-  return rho;
+  return s;
 }
 
 point3d * vanish_u(point3d *u){
