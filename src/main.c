@@ -30,11 +30,11 @@ int main(int argc, char **argv){
   on_off_collision=true;
   for (t=0;t<numsteps;t++){
     T = (double)i*time_step_dt;
-    printf("%d\n", t);
-    rho = calc_den(rho, f);
     g_force = calc_g_force(rho, g);
+    printf("%d\n", t);
+    rho = calc_den(rho, f_eq);
     printf("calculated density\n");
-    u = calc_vel(u, rho, c, f, g_force);
+    u = calc_vel(u, rho, c, f_eq, g_force);
     printf("calculated velocities\n");
     f_eq = calc_feq(w,c,rho,u);
     printf("calculated f_eq\n");
@@ -56,12 +56,13 @@ int main(int argc, char **argv){
     free(outname_rho);
     printf("writing out to disk...\n");
     fnew = collide_and_stream(f, fac_f, f_eq, c, on_off_collision);
-    printf("Collision made\n");
+    printf("Collision made, now propagation\n");
     for (v=0;v<vel_num;v++){
       for(i=0;i<lattice_nx;i++){
 	for (j=0;j<lattice_ny;j++){
 	  for (k=0;k<lattice_nz;k++){
 	    idxf = IDX4(v,i,j,k);
+            //printf("%d, %d, %d, %d, %lf, %lf\n", v,i,j,k,f[idxf], fnew[idxf]);
 	    f[idxf] = fnew[idxf];
 	  }
 	}

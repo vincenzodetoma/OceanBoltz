@@ -9,10 +9,10 @@ double * init_rho(double *rho, const double rho_0){
     for (j=0;j<lattice_ny;j++){
       for (k=0;k<lattice_nz;k++){
 	idxrho = IDX3(i,j,k);
-        if(k<lattice_nz*0.5){
+        if(k<lattice_nz*0.5 || j<lattice_ny*0.5){
 	  rho[idxrho] = rho_0;
         } else {
-          rho[idxrho] = rho_0 - rho_0/1000.;
+          rho[idxrho] = rho_0 - rho_0*0.005;
         }
       }
     }
@@ -22,7 +22,7 @@ double * init_rho(double *rho, const double rho_0){
   return rho;
 }
 
-point3d * init_u(point3d *u){
+point3d * init_u(point3d *V){
   int seed;
   int i, j, k, idxu;
   double rx, ry, rz;
@@ -36,16 +36,16 @@ point3d * init_u(point3d *u){
 	ry = (double) lrand48() / RAND_MAX;
 	rz = (double) lrand48() / RAND_MAX;
 	//u[idxu] = (point3d){rx,ry,rz};
-	u[idxu] = (point3d){0.,0.,0.};
+	V[idxu] = (point3d){0.,0.,0.};
       }
     }
   }
   //printf("Printing init u:\n");
   //print_vec(u);
-  return u;
+  return V;
 }
 
-double * init_fs(double *f, const double *init){
+double * init_fs(double *F, const double *init){
   int v,i,j,k, idxf;
   printf("printing init f's:\n");
   for(v=0;v<vel_num;v++){
@@ -53,13 +53,13 @@ double * init_fs(double *f, const double *init){
       for(j=0;j<lattice_ny;j++){
 	for(k=0;k<lattice_nz;k++){
 	  idxf = IDX4(v,i,j,k);
-	  f[idxf] = init[idxf];
+	  F[idxf] = init[idxf];
 	}
       }
     }
   }
   //print_fs(f);
-  return f;
+  return F;
 }
 
 double scal_prod (point3d a, point3d b){
@@ -90,7 +90,7 @@ double * calc_feq(const double *w, const point3d *c, const double *rho, const po
   return to_return;
 }
 
-double * calc_g_force(double *rho, const double g){
+double * calc_g_force(const double *rho, const double g){
   int i, j, k, idxrho;
   g_force = vanish_scalar(g_force);
   for (i=0;i<lattice_nx;i++){

@@ -6,5 +6,5 @@
 double * calc_den(double *, const double *);
 point3d * calc_vel(point3d *, const double *, const point3d *, const double *, const double *);
 double * vanish_scalar(double *);
-point3d * vanish_u(point3d *);
+point3d * vanish_vector(point3d *);
 #endif
